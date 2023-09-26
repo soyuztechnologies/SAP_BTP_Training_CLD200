@@ -1,0 +1,100 @@
+GET http://localhost:4004/CatalogService
+
+###Read service metadata
+GET http://localhost:4004/CatalogService/$metadata
+
+###Get Top 2 employees
+GET http://localhost:4004/CatalogService/EmployeeSet?$top=2
+
+###POST Call - Create new employee
+POST http://localhost:4004/CatalogService/EmployeeSet
+Content-Type: application/json
+
+{
+      "ID": "02BD2137-0890-1EEA-A6C2-BB55C198E8DB",
+      "nameFirst": "Ananya",
+      "nameMiddle": null,
+      "nameLast": "Biswas",
+      "nameInitials": null,
+      "sex": "F",
+      "language": "E",
+      "phoneNumber": null,
+      "email": "ananya.biswas@ey.com",
+      "loginName": "BISWASAN",
+      "Currency_code": "USD",
+      "salaryAmount": 95000,
+      "accountNumber": "9988776655",
+      "bankId": "12100035",
+      "bankName": "My Bank of San Francisco"
+}
+
+###Get the employee which was created
+http://localhost:4004/CatalogService/EmployeeSet/02BD2137-0890-1EEA-A6C2-BB55C198E8DB
+
+###Update employee Salary
+PATCH http://localhost:4004/CatalogService/EmployeeSet/02BD2137-0890-1EEA-A6C2-BB55C198E8DB
+Content-Type: application/json
+
+{
+    "salaryAmount": 1200002,
+    "Currency_code": "EUR"
+}
+
+###Display All purchase orders
+http://localhost:4004/CatalogService/POs
+
+###Get single PO
+http://localhost:4004/CatalogService/POs/74867AD200E41EDBA5D8B0C98DC34052
+
+
+###GET main entity and associated entity together
+http://localhost:4004/CatalogService/POs/74867AD200E41EDBA5D8B0C98DC34052?$expand=Items
+
+###Boosting a order
+POST http://localhost:4004/CatalogService/POs('74867AD200E41EDBA5D8B0C98DC34052')/CatalogService.boost
+Content-Type: application/json
+
+{}
+
+###Boosting a order
+GET http://localhost:4004/CatalogService/POs('74867AD200E41EDBA5D8B0C98DC34052')/CatalogService.largestOrder()
+
+###Custom code - Entity GET
+GET http://localhost:4004/mysrvdemo/ReadEmployeeSrv
+
+###Custom code - Entity GET with dynamic where
+GET http://localhost:4004/mysrvdemo/ReadEmployeeSrv/02BD2137-0890-1EEA-A6C2-BB55C197A7FB
+
+###POST to insert data
+POST http://localhost:4004/mysrvdemo/InserEmployeeSrv
+Content-Type: application/json
+
+{
+      "ID": "02BD2137-0890-1EEA-A6C2-BB55C198E8DB",
+      "nameFirst": "Happy",
+      "nameMiddle": null,
+      "nameLast": "New Data",
+      "nameInitials": null,
+      "sex": "F",
+      "language": "E",
+      "phoneNumber": null,
+      "email": "nongyui@ey.com",
+      "loginName": "NONBGYUI",
+      "Currency_code": "USD",
+      "salaryAmount": 95000,
+      "accountNumber": "9988776655",
+      "bankId": "12100035",
+      "bankName": "My Bank of San Francisco"
+}
+
+###POST to insert data
+PATCH http://localhost:4004/mysrvdemo/UpdateEmployeeSrv/02BD2137-0890-1EEA-A6C2-BB55C198E8DB
+Content-Type: application/json
+
+{
+    "nameFirst": "Update"
+}
+
+###DELETE Employee
+DELETE http://localhost:4004/mysrvdemo/DeleteEmployeeSrv/02BD2137-0890-1EEA-A6C2-BB55C198E8DB
+Content-Type: application/json

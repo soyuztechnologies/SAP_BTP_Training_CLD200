@@ -1,0 +1,407 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="4.0" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+    <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Capabilities.V1.xml">
+        <edmx:Include Alias="Capabilities" Namespace="Org.OData.Capabilities.V1"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/Common.xml">
+        <edmx:Include Alias="Common" Namespace="com.sap.vocabularies.Common.v1"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Core.V1.xml">
+        <edmx:Include Alias="Core" Namespace="Org.OData.Core.V1"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/UI.xml">
+        <edmx:Include Alias="UI" Namespace="com.sap.vocabularies.UI.v1"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Validation.V1.xml">
+        <edmx:Include Alias="Validation" Namespace="Org.OData.Validation.V1"/>
+    </edmx:Reference>
+    <edmx:DataServices>
+        <Schema Namespace="CatalogService" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+            <EntityContainer Name="EntityContainer">
+                <EntitySet Name="BusinessPartnerSet" EntityType="CatalogService.BusinessPartnerSet">
+                    <NavigationPropertyBinding Path="ADDRESS_GUID" Target="AddressSet"/>
+                </EntitySet>
+                <EntitySet Name="AddressSet" EntityType="CatalogService.AddressSet">
+                    <NavigationPropertyBinding Path="businesspartner" Target="BusinessPartnerSet"/>
+                </EntitySet>
+                <EntitySet Name="EmployeeSet" EntityType="CatalogService.EmployeeSet">
+                    <NavigationPropertyBinding Path="Currency" Target="Currencies"/>
+                </EntitySet>
+                <EntitySet Name="PurchaseOrderItems" EntityType="CatalogService.PurchaseOrderItems">
+                    <NavigationPropertyBinding Path="CURRENCY" Target="Currencies"/>
+                    <NavigationPropertyBinding Path="PARENT_KEY" Target="POs"/>
+                    <NavigationPropertyBinding Path="PRODUCT_GUID" Target="CProductValuesView"/>
+                </EntitySet>
+                <EntitySet Name="POs" EntityType="CatalogService.POs">
+                    <NavigationPropertyBinding Path="CURRENCY" Target="Currencies"/>
+                    <NavigationPropertyBinding Path="PARTNER_GUID" Target="BusinessPartnerSet"/>
+                    <NavigationPropertyBinding Path="Items" Target="PurchaseOrderItems"/>
+                </EntitySet>
+                <EntitySet Name="CProductValuesView" EntityType="CatalogService.CProductValuesView">
+                    <NavigationPropertyBinding Path="CurrencyCode" Target="Currencies"/>
+                </EntitySet>
+                <EntitySet Name="Currencies" EntityType="CatalogService.Currencies">
+                    <NavigationPropertyBinding Path="texts" Target="Currencies_texts"/>
+                    <NavigationPropertyBinding Path="localized" Target="Currencies_texts"/>
+                </EntitySet>
+                <EntitySet Name="Currencies_texts" EntityType="CatalogService.Currencies_texts"/>
+            </EntityContainer>
+            <EntityType Name="BusinessPartnerSet">
+                <Key>
+                    <PropertyRef Name="NODE_KEY"/>
+                </Key>
+                <Property Name="NODE_KEY" Type="Edm.String" MaxLength="32" Nullable="false"/>
+                <Property Name="BP_ROLE" Type="Edm.String" MaxLength="2"/>
+                <Property Name="EMAIL_ADDRESS" Type="Edm.String" MaxLength="105"/>
+                <Property Name="PHONE_NUMBER" Type="Edm.String" MaxLength="32"/>
+                <Property Name="FAX_NUMBER" Type="Edm.String" MaxLength="32"/>
+                <Property Name="WEB_ADDRESS" Type="Edm.String" MaxLength="44"/>
+                <NavigationProperty Name="ADDRESS_GUID" Type="CatalogService.AddressSet" Partner="businesspartner">
+                    <ReferentialConstraint Property="ADDRESS_GUID_NODE_KEY" ReferencedProperty="NODE_KEY"/>
+                </NavigationProperty>
+                <Property Name="ADDRESS_GUID_NODE_KEY" Type="Edm.String" MaxLength="32"/>
+                <Property Name="BP_ID" Type="Edm.String" MaxLength="32"/>
+                <Property Name="COMPANY_NAME" Type="Edm.String" MaxLength="250"/>
+            </EntityType>
+            <EntityType Name="AddressSet">
+                <Key>
+                    <PropertyRef Name="NODE_KEY"/>
+                </Key>
+                <Property Name="NODE_KEY" Type="Edm.String" MaxLength="32" Nullable="false"/>
+                <Property Name="CITY" Type="Edm.String" MaxLength="44"/>
+                <Property Name="POSTAL_CODE" Type="Edm.String" MaxLength="8"/>
+                <Property Name="STREET" Type="Edm.String" MaxLength="44"/>
+                <Property Name="BUILDING" Type="Edm.String" MaxLength="128"/>
+                <Property Name="COUNTRY" Type="Edm.String" MaxLength="44"/>
+                <Property Name="ADDRESS_TYPE" Type="Edm.String" MaxLength="44"/>
+                <Property Name="VAL_START_DATE" Type="Edm.Date"/>
+                <Property Name="VAL_END_DATE" Type="Edm.Date"/>
+                <Property Name="LATITUDE" Type="Edm.Decimal" Scale="variable"/>
+                <Property Name="LONGITUDE" Type="Edm.Decimal" Scale="variable"/>
+                <NavigationProperty Name="businesspartner" Type="CatalogService.BusinessPartnerSet" Partner="ADDRESS_GUID">
+                    <ReferentialConstraint Property="NODE_KEY" ReferencedProperty="ADDRESS_GUID_NODE_KEY"/>
+                </NavigationProperty>
+            </EntityType>
+            <EntityType Name="EmployeeSet">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="nameFirst" Type="Edm.String" MaxLength="40"/>
+                <Property Name="nameMiddle" Type="Edm.String" MaxLength="40"/>
+                <Property Name="nameLast" Type="Edm.String" MaxLength="40"/>
+                <Property Name="nameInitials" Type="Edm.String" MaxLength="40"/>
+                <Property Name="sex" Type="Edm.String" MaxLength="1"/>
+                <Property Name="language" Type="Edm.String" MaxLength="1"/>
+                <Property Name="phoneNumber" Type="Edm.String" MaxLength="30"/>
+                <Property Name="email" Type="Edm.String" MaxLength="255"/>
+                <Property Name="loginName" Type="Edm.String" MaxLength="12"/>
+                <NavigationProperty Name="Currency" Type="CatalogService.Currencies">
+                    <ReferentialConstraint Property="Currency_code" ReferencedProperty="code"/>
+                </NavigationProperty>
+                <Property Name="Currency_code" Type="Edm.String" MaxLength="3"/>
+                <Property Name="salaryAmount" Type="Edm.Decimal" Scale="2" Precision="10"/>
+                <Property Name="accountNumber" Type="Edm.String" MaxLength="16"/>
+                <Property Name="bankId" Type="Edm.String" MaxLength="8"/>
+                <Property Name="bankName" Type="Edm.String" MaxLength="64"/>
+            </EntityType>
+            <EntityType Name="PurchaseOrderItems">
+                <Key>
+                    <PropertyRef Name="NODE_KEY"/>
+                </Key>
+                <NavigationProperty Name="CURRENCY" Type="CatalogService.Currencies">
+                    <ReferentialConstraint Property="CURRENCY_code" ReferencedProperty="code"/>
+                </NavigationProperty>
+                <Property Name="CURRENCY_code" Type="Edm.String" MaxLength="3"/>
+                <Property Name="GROSS_AMOUNT" Type="Edm.Decimal" Scale="2" Precision="10"/>
+                <Property Name="NET_AMOUNT" Type="Edm.Decimal" Scale="2" Precision="10"/>
+                <Property Name="TAX_AMOUNT" Type="Edm.Decimal" Scale="2" Precision="10"/>
+                <Property Name="NODE_KEY" Type="Edm.String" MaxLength="32" Nullable="false"/>
+                <NavigationProperty Name="PARENT_KEY" Type="CatalogService.POs" Partner="Items">
+                    <ReferentialConstraint Property="PARENT_KEY_NODE_KEY" ReferencedProperty="NODE_KEY"/>
+                </NavigationProperty>
+                <Property Name="PARENT_KEY_NODE_KEY" Type="Edm.String" MaxLength="32"/>
+                <Property Name="PO_ITEM_POS" Type="Edm.Int32"/>
+                <NavigationProperty Name="PRODUCT_GUID" Type="CatalogService.CProductValuesView">
+                    <ReferentialConstraint Property="PRODUCT_GUID_NODE_KEY" ReferencedProperty="ProductId"/>
+                </NavigationProperty>
+                <Property Name="PRODUCT_GUID_NODE_KEY" Type="Edm.String" MaxLength="32"/>
+            </EntityType>
+            <EntityType Name="POs">
+                <Key>
+                    <PropertyRef Name="NODE_KEY"/>
+                </Key>
+                <NavigationProperty Name="CURRENCY" Type="CatalogService.Currencies">
+                    <ReferentialConstraint Property="CURRENCY_code" ReferencedProperty="code"/>
+                </NavigationProperty>
+                <Property Name="CURRENCY_code" Type="Edm.String" MaxLength="3"/>
+                <Property Name="GROSS_AMOUNT" Type="Edm.Decimal" Scale="2" Precision="10"/>
+                <Property Name="NET_AMOUNT" Type="Edm.Decimal" Scale="2" Precision="10"/>
+                <Property Name="TAX_AMOUNT" Type="Edm.Decimal" Scale="2" Precision="10"/>
+                <Property Name="NODE_KEY" Type="Edm.String" MaxLength="32" Nullable="false"/>
+                <Property Name="PO_ID" Type="Edm.String" MaxLength="40"/>
+                <NavigationProperty Name="PARTNER_GUID" Type="CatalogService.BusinessPartnerSet">
+                    <ReferentialConstraint Property="PARTNER_GUID_NODE_KEY" ReferencedProperty="NODE_KEY"/>
+                </NavigationProperty>
+                <Property Name="PARTNER_GUID_NODE_KEY" Type="Edm.String" MaxLength="32"/>
+                <Property Name="LIFECYCLE_STATUS" Type="Edm.String" MaxLength="1"/>
+                <Property Name="OVERALL_STATUS" Type="Edm.String" MaxLength="1"/>
+                <Property Name="NOTE" Type="Edm.String" MaxLength="45" DefaultValue="null"/>
+                <NavigationProperty Name="Items" Type="Collection(CatalogService.PurchaseOrderItems)" Partner="PARENT_KEY"/>
+            </EntityType>
+            <EntityType Name="CProductValuesView">
+                <Key>
+                    <PropertyRef Name="ProductId"/>
+                </Key>
+                <Property Name="ProductId" Type="Edm.String" MaxLength="32" Nullable="false"/>
+                <Property Name="Country" Type="Edm.String" MaxLength="44"/>
+                <Property Name="TotalPurchaseAmount" Type="Edm.Decimal" Scale="2" Precision="10"/>
+                <NavigationProperty Name="CurrencyCode" Type="CatalogService.Currencies">
+                    <ReferentialConstraint Property="CurrencyCode_code" ReferencedProperty="code"/>
+                </NavigationProperty>
+                <Property Name="CurrencyCode_code" Type="Edm.String" MaxLength="3"/>
+            </EntityType>
+            <EntityType Name="Currencies">
+                <Key>
+                    <PropertyRef Name="code"/>
+                </Key>
+                <Property Name="name" Type="Edm.String" MaxLength="255"/>
+                <Property Name="descr" Type="Edm.String" MaxLength="1000"/>
+                <Property Name="code" Type="Edm.String" MaxLength="3" Nullable="false"/>
+                <Property Name="symbol" Type="Edm.String" MaxLength="5"/>
+                <NavigationProperty Name="texts" Type="Collection(CatalogService.Currencies_texts)">
+                    <OnDelete Action="Cascade"/>
+                </NavigationProperty>
+                <NavigationProperty Name="localized" Type="CatalogService.Currencies_texts">
+                    <ReferentialConstraint Property="code" ReferencedProperty="code"/>
+                </NavigationProperty>
+            </EntityType>
+            <EntityType Name="Currencies_texts">
+                <Key>
+                    <PropertyRef Name="locale"/>
+                    <PropertyRef Name="code"/>
+                </Key>
+                <Property Name="locale" Type="Edm.String" MaxLength="14" Nullable="false"/>
+                <Property Name="name" Type="Edm.String" MaxLength="255"/>
+                <Property Name="descr" Type="Edm.String" MaxLength="1000"/>
+                <Property Name="code" Type="Edm.String" MaxLength="3" Nullable="false"/>
+            </EntityType>
+            <Action Name="boost" IsBound="true">
+                <Parameter Name="in" Type="CatalogService.POs"/>
+            </Action>
+            <Function Name="largestOrder" IsBound="true" IsComposable="false" EntitySetPath="in">
+                <Parameter Name="in" Type="CatalogService.POs"/>
+                <ReturnType Type="Collection(CatalogService.POs)" Nullable="false"/>
+            </Function>
+            <Annotations Target="CatalogService.EntityContainer/BusinessPartnerSet">
+                <Annotation Term="Capabilities.InsertRestrictions">
+                    <Record Type="Capabilities.InsertRestrictionsType">
+                        <PropertyValue Property="Insertable" Bool="true"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.DeleteRestrictions">
+                    <Record Type="Capabilities.DeleteRestrictionsType">
+                        <PropertyValue Property="Deletable" Bool="false"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.EntityContainer/EmployeeSet">
+                <Annotation Term="Capabilities.DeleteRestrictions">
+                    <Record Type="Capabilities.DeleteRestrictionsType">
+                        <PropertyValue Property="Deletable" Bool="false"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.InsertRestrictions">
+                    <Record Type="Capabilities.InsertRestrictionsType">
+                        <PropertyValue Property="Insertable" Bool="false"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.UpdateRestrictions">
+                    <Record Type="Capabilities.UpdateRestrictionsType">
+                        <PropertyValue Property="Updatable" Bool="false"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.EmployeeSet/sex">
+                <Annotation Term="Validation.AllowedValues">
+                    <Collection>
+                        <Record Type="Validation.AllowedValue">
+                            <Annotation Term="Core.SymbolicName" String="male"/>
+                            <PropertyValue Property="Value" String="M"/>
+                        </Record>
+                        <Record Type="Validation.AllowedValue">
+                            <Annotation Term="Core.SymbolicName" String="female"/>
+                            <PropertyValue Property="Value" String="F"/>
+                        </Record>
+                        <Record Type="Validation.AllowedValue">
+                            <Annotation Term="Core.SymbolicName" String="undisclosed"/>
+                            <PropertyValue Property="Value" String="U"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.EmployeeSet/phoneNumber">
+                <Annotation Term="Validation.Pattern" String="^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$"/>
+            </Annotations>
+            <Annotations Target="CatalogService.EmployeeSet/email">
+                <Annotation Term="Validation.Pattern" String="^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$"/>
+            </Annotations>
+            <Annotations Target="CatalogService.EmployeeSet/Currency">
+                <Annotation Term="Common.Label" String="{i18n>Currency}"/>
+                    <Annotation Term="Core.Description" String="{i18n>CurrencyCode.Description}"/>
+                    </Annotations>
+                    <Annotations Target="CatalogService.EmployeeSet/Currency_code">
+                        <Annotation Term="Common.Label" String="{i18n>Currency}"/>
+                            <Annotation Term="Common.ValueList">
+                                <Record Type="Common.ValueListType">
+                                    <PropertyValue Property="Label" String="{i18n>Currency}"/>
+                                        <PropertyValue Property="CollectionPath" String="Currencies"/>
+                                        <PropertyValue Property="Parameters">
+                                            <Collection>
+                                                <Record Type="Common.ValueListParameterInOut">
+                                                    <PropertyValue Property="LocalDataProperty" PropertyPath="Currency_code"/>
+                                                    <PropertyValue Property="ValueListProperty" String="code"/>
+                                                </Record>
+                                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                                    <PropertyValue Property="ValueListProperty" String="name"/>
+                                                </Record>
+                                            </Collection>
+                                        </PropertyValue>
+                                    </Record>
+                                </Annotation>
+                                <Annotation Term="Core.Description" String="{i18n>CurrencyCode.Description}"/>
+                                </Annotations>
+                                <Annotations Target="CatalogService.PurchaseOrderItems/CURRENCY">
+                                    <Annotation Term="Common.Label" String="{i18n>Currency}"/>
+                                        <Annotation Term="Core.Description" String="{i18n>CurrencyCode.Description}"/>
+                                        </Annotations>
+                                        <Annotations Target="CatalogService.PurchaseOrderItems/CURRENCY_code">
+                                            <Annotation Term="Common.Label" String="{i18n>Currency}"/>
+                                                <Annotation Term="Common.ValueList">
+                                                    <Record Type="Common.ValueListType">
+                                                        <PropertyValue Property="Label" String="{i18n>Currency}"/>
+                                                            <PropertyValue Property="CollectionPath" String="Currencies"/>
+                                                            <PropertyValue Property="Parameters">
+                                                                <Collection>
+                                                                    <Record Type="Common.ValueListParameterInOut">
+                                                                        <PropertyValue Property="LocalDataProperty" PropertyPath="CURRENCY_code"/>
+                                                                        <PropertyValue Property="ValueListProperty" String="code"/>
+                                                                    </Record>
+                                                                    <Record Type="Common.ValueListParameterDisplayOnly">
+                                                                        <PropertyValue Property="ValueListProperty" String="name"/>
+                                                                    </Record>
+                                                                </Collection>
+                                                            </PropertyValue>
+                                                        </Record>
+                                                    </Annotation>
+                                                    <Annotation Term="Core.Description" String="{i18n>CurrencyCode.Description}"/>
+                                                    </Annotations>
+                                                    <Annotations Target="CatalogService.PurchaseOrderItems/GROSS_AMOUNT">
+                                                        <Annotation Term="Common.Label" String="{i18n>GrossAmount}"/>
+                                                        </Annotations>
+                                                        <Annotations Target="CatalogService.PurchaseOrderItems/NET_AMOUNT">
+                                                            <Annotation Term="Common.Label" String="{i18n>NetAmount}"/>
+                                                            </Annotations>
+                                                            <Annotations Target="CatalogService.PurchaseOrderItems/TAX_AMOUNT">
+                                                                <Annotation Term="Common.Label" String="{i18n>TaxAmount}"/>
+                                                                </Annotations>
+                                                                <Annotations Target="CatalogService.POs/CURRENCY">
+                                                                    <Annotation Term="Common.Label" String="{i18n>Currency}"/>
+                                                                        <Annotation Term="Core.Description" String="{i18n>CurrencyCode.Description}"/>
+                                                                        </Annotations>
+                                                                        <Annotations Target="CatalogService.POs/CURRENCY_code">
+                                                                            <Annotation Term="Common.Label" String="{i18n>Currency}"/>
+                                                                                <Annotation Term="Common.ValueList">
+                                                                                    <Record Type="Common.ValueListType">
+                                                                                        <PropertyValue Property="Label" String="{i18n>Currency}"/>
+                                                                                            <PropertyValue Property="CollectionPath" String="Currencies"/>
+                                                                                            <PropertyValue Property="Parameters">
+                                                                                                <Collection>
+                                                                                                    <Record Type="Common.ValueListParameterInOut">
+                                                                                                        <PropertyValue Property="LocalDataProperty" PropertyPath="CURRENCY_code"/>
+                                                                                                        <PropertyValue Property="ValueListProperty" String="code"/>
+                                                                                                    </Record>
+                                                                                                    <Record Type="Common.ValueListParameterDisplayOnly">
+                                                                                                        <PropertyValue Property="ValueListProperty" String="name"/>
+                                                                                                    </Record>
+                                                                                                </Collection>
+                                                                                            </PropertyValue>
+                                                                                        </Record>
+                                                                                    </Annotation>
+                                                                                    <Annotation Term="Core.Description" String="{i18n>CurrencyCode.Description}"/>
+                                                                                    </Annotations>
+                                                                                    <Annotations Target="CatalogService.POs/GROSS_AMOUNT">
+                                                                                        <Annotation Term="Core.Computed" Bool="true"/>
+                                                                                    </Annotations>
+                                                                                    <Annotations Target="CatalogService.POs/NET_AMOUNT">
+                                                                                        <Annotation Term="Common.Label" String="{i18n>NetAmount}"/>
+                                                                                        </Annotations>
+                                                                                        <Annotations Target="CatalogService.POs/TAX_AMOUNT">
+                                                                                            <Annotation Term="Common.Label" String="{i18n>TaxAmount}"/>
+                                                                                            </Annotations>
+                                                                                            <Annotations Target="CatalogService.CProductValuesView/TotalPurchaseAmount">
+                                                                                                <Annotation Term="Core.Computed" Bool="true"/>
+                                                                                            </Annotations>
+                                                                                            <Annotations Target="CatalogService.CProductValuesView/CurrencyCode">
+                                                                                                <Annotation Term="Common.Label" String="{i18n>Currency}"/>
+                                                                                                    <Annotation Term="Core.Description" String="{i18n>CurrencyCode.Description}"/>
+                                                                                                    </Annotations>
+                                                                                                    <Annotations Target="CatalogService.CProductValuesView/CurrencyCode_code">
+                                                                                                        <Annotation Term="Common.Label" String="{i18n>Currency}"/>
+                                                                                                            <Annotation Term="Common.ValueList">
+                                                                                                                <Record Type="Common.ValueListType">
+                                                                                                                    <PropertyValue Property="Label" String="{i18n>Currency}"/>
+                                                                                                                        <PropertyValue Property="CollectionPath" String="Currencies"/>
+                                                                                                                        <PropertyValue Property="Parameters">
+                                                                                                                            <Collection>
+                                                                                                                                <Record Type="Common.ValueListParameterInOut">
+                                                                                                                                    <PropertyValue Property="LocalDataProperty" PropertyPath="CurrencyCode_code"/>
+                                                                                                                                    <PropertyValue Property="ValueListProperty" String="code"/>
+                                                                                                                                </Record>
+                                                                                                                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                                                                                                                    <PropertyValue Property="ValueListProperty" String="name"/>
+                                                                                                                                </Record>
+                                                                                                                            </Collection>
+                                                                                                                        </PropertyValue>
+                                                                                                                    </Record>
+                                                                                                                </Annotation>
+                                                                                                                <Annotation Term="Core.Description" String="{i18n>CurrencyCode.Description}"/>
+                                                                                                                </Annotations>
+                                                                                                                <Annotations Target="CatalogService.Currencies">
+                                                                                                                    <Annotation Term="UI.Identification">
+                                                                                                                        <Collection>
+                                                                                                                            <Record Type="UI.DataField">
+                                                                                                                                <PropertyValue Property="Value" Path="name"/>
+                                                                                                                            </Record>
+                                                                                                                        </Collection>
+                                                                                                                    </Annotation>
+                                                                                                                </Annotations>
+                                                                                                                <Annotations Target="CatalogService.Currencies/name">
+                                                                                                                    <Annotation Term="Common.Label" String="{i18n>Name}"/>
+                                                                                                                    </Annotations>
+                                                                                                                    <Annotations Target="CatalogService.Currencies/descr">
+                                                                                                                        <Annotation Term="Common.Label" String="{i18n>Description}"/>
+                                                                                                                        </Annotations>
+                                                                                                                        <Annotations Target="CatalogService.Currencies/code">
+                                                                                                                            <Annotation Term="Common.Text" Path="name"/>
+                                                                                                                            <Annotation Term="Common.Label" String="{i18n>CurrencyCode}"/>
+                                                                                                                            </Annotations>
+                                                                                                                            <Annotations Target="CatalogService.Currencies/symbol">
+                                                                                                                                <Annotation Term="Common.Label" String="{i18n>CurrencySymbol}"/>
+                                                                                                                                </Annotations>
+                                                                                                                                <Annotations Target="CatalogService.Currencies_texts/locale">
+                                                                                                                                    <Annotation Term="Common.Label" String="{i18n>LanguageCode}"/>
+                                                                                                                                    </Annotations>
+                                                                                                                                    <Annotations Target="CatalogService.Currencies_texts/name">
+                                                                                                                                        <Annotation Term="Common.Label" String="{i18n>Name}"/>
+                                                                                                                                        </Annotations>
+                                                                                                                                        <Annotations Target="CatalogService.Currencies_texts/descr">
+                                                                                                                                            <Annotation Term="Common.Label" String="{i18n>Description}"/>
+                                                                                                                                            </Annotations>
+                                                                                                                                            <Annotations Target="CatalogService.Currencies_texts/code">
+                                                                                                                                                <Annotation Term="Common.Text" Path="name"/>
+                                                                                                                                                <Annotation Term="Common.Label" String="{i18n>CurrencyCode}"/>
+                                                                                                                                                </Annotations>
+                                                                                                                                            </Schema>
+                                                                                                                                        </edmx:DataServices>
+                                                                                                                                    </edmx:Edmx>
