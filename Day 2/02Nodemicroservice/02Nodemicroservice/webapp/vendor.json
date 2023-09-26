@@ -1,0 +1,120 @@
+{
+    "results": [{
+        "companyName": "SAP Labs",
+        "contactPerson": "Prakash Kumar",
+        "firstName": "Ravikanth",
+        "lastName": "Mallipeddu",
+        "website": "www.sap.com",
+        "email": "ravi@sap.com",
+        "status": "A",
+        "regDate": "2022-11-06T02:53:11.380+00:00"
+    },
+    
+    
+    {
+        "companyName": "EMC2",
+        "contactPerson": "Rajesh",
+        "firstName": "Megha",
+        "lastName": "Sharma",
+        "website": "www.emc2.com",
+        "email": "megha@emc2.com",
+        "status": "A",
+        "regDate": "2022-11-06T02:53:11.380+00:00"
+    },
+    
+    
+    {
+        "companyName": "EMC2",
+        "contactPerson": "Vinit",
+        "firstName": "Sonia",
+        "lastName": "Mehra",
+        "website": "www.emc2.com",
+        "email": "sonia@emc2.com",
+        "status": "A",
+        "regDate": "2022-11-06T02:53:11.380+00:00"
+    },
+    
+    
+    {
+        "companyName": "EMC2",
+        "contactPerson": "Rupesh",
+        "firstName": "Stevia",
+        "lastName": "Phillip",
+        "website": "www.emc2.com",
+        "email": "stevia@emc2.com",
+        "status": "A",
+        "regDate": "2022-11-06T02:53:11.380+00:00"
+    },
+    
+    {
+        "companyName": "SAP",
+        "contactPerson": "Lohitaksh",
+        "firstName": "Sakshi",
+        "lastName": "Gupta",
+        "website": "www.sap.com",
+        "email": "sakshi@sap.com",
+        "status": "A",
+        "regDate": "2022-11-06T02:53:11.380+00:00"
+    },
+    
+    {
+        "companyName": "SAP",
+        "contactPerson": "Prakash",
+        "firstName": "Ravikanth",
+        "lastName": "Malipeddu",
+        "website": "www.sap.com",
+        "email": "ravikanth@sap.com",
+        "status": "A",
+        "regDate": "2022-11-06T02:53:11.380+00:00"
+    },
+    
+    {
+        "companyName": "SAP",
+        "contactPerson": "Sakshi",
+        "firstName": "Anjali",
+        "lastName": "Kumari",
+        "website": "www.sap.com",
+        "email": "anjali@sap.com",
+        "status": "A",
+        "regDate": "2022-11-06T02:53:11.380+00:00"
+    },
+    
+    {
+        "companyName": "EMC2",
+        "contactPerson": "Anurag",
+        "firstName": "Ananya",
+        "lastName": "Biswas",
+        "website": "www.emc2.com",
+        "email": "ananya@emc2.com",
+        "status": "A",
+        "regDate": "2022-11-06T02:53:11.380+00:00"
+    },
+    
+    
+    {
+        "companyName": "EMC2",
+        "contactPerson": "Prakash",
+        "firstName": "Srinivas",
+        "lastName": "Kondacha",
+        "website": "www.emc2.com",
+        "email": "srinivas@emc2.com",
+        "status": "A",
+        "regDate": "2022-11-06T02:53:11.380+00:00",
+        "addressess" : [
+            {
+                "addressType":"H",
+                "street":"MG Road",
+                "city":"Bangalore",
+                "country":"India",
+                "region":"APJ"
+            },
+            {
+                "addressType":"P",
+                "street":"Richmond Road",
+                "city":"Bangalore",
+                "country":"India",
+                "region":"APJ"
+            }
+        ]
+    }]
+}

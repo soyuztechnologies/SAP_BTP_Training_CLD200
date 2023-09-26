@@ -1,0 +1,4 @@
+applications:
+- name: mynodemicro
+  random-route: true
+  memory: 256M

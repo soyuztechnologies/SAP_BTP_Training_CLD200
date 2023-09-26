@@ -1,0 +1,265 @@
+<html>
+
+<head>
+    <style>
+        @import url("https://fonts.googleapis.com/css?family=Handlee&display=swap");
+    body {
+    background: #52797E;
+    }
+
+    .ganesha {
+    position: relative;
+    width: 400px;
+    height: 400px;
+    margin: auto;
+    margin-top: 10%;
+    }
+
+    .crown-top {
+    position: absolute;
+    top: 10%;
+    left: 45%;
+    width: 10%;
+    height: 10%;
+    background: #FCCF78;
+    clip-path: polygon(0 50%, 50% 0, 100% 50%, 50% 100%);
+    z-index: 0;
+    }
+
+    .crown-top-circle {
+    position: absolute;
+    width: 5%;
+    height: 5%;
+    background: #FDE2AF;
+    border-radius: 50%;
+    top: 12.5%;
+    left: 47.5%;
+    }
+
+    .crown-bottom {
+    position: absolute;
+    top: 15%;
+    left: 35%;
+    height: 30%;
+    width: 30%;
+    background: #FCCF78;
+    clip-path: polygon(0 50%, 50% 0, 100% 50%, 50% 100%);
+    z-index: 2;
+    }
+
+    .crown-bottom-circle-1 {
+    position: absolute;
+    width: 5%;
+    height: 5%;
+    background: #FDE2AF;
+    border-radius: 50%;
+    top: 21%;
+    left: 47.5%;
+    z-index: 2;
+    }
+
+    .crown-bottom-circle-2 {
+    position: absolute;
+    width: 5%;
+    height: 5%;
+    background: #FDE2AF;
+    border-radius: 50%;
+    top: 27%;
+    left: 40%;
+    z-index: 2;
+    }
+
+    .crown-bottom-circle-3 {
+    position: absolute;
+    width: 5%;
+    height: 5%;
+    background: #FDE2AF;
+    border-radius: 50%;
+    top: 27%;
+    right: 40%;
+    z-index: 2;
+    }
+
+    .face-upper {
+    position: absolute;
+    top: 30%;
+    left: 42.5%;
+    width: 15%;
+    height: 15%;
+    background: #72BA92;
+    clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+    z-index: 3;
+    }
+
+    .face-bottom {
+    position: absolute;
+    top: 30%;
+    left: 42.5%;
+    width: 15%;
+    height: 25%;
+    background: #72BA92;
+    z-index: 1;
+    box-shadow: 0px 0px 8px -5px black;
+    }
+
+    .trishool {
+    position: absolute;
+    top: 36.5%;
+    left: 47.5%;
+    width: 5%;
+    height: 4%;
+    background: #FCCF78;
+    z-index: 3;
+    clip-path: polygon(45% 5%, 45% 60%, 30% 60%, 30% 15%, 8% 0%, 0% 8%, 20% 20%, 20% 70%, 45% 70%, 45% 100%, 55% 100%,
+    55% 70%, 80% 70%, 80% 20%, 100% 8%, 92% 0%, 70% 15%, 70% 60%, 55% 60%, 55% 5%);
+    }
+
+    .eye-left {
+    position: absolute;
+    top: 43%;
+    left: 45%;
+    width: 2%;
+    height: 2%;
+    border-radius: 50%;
+    background: #EAEAEA;
+    z-index: 3;
+    }
+
+    .eye-right {
+    position: absolute;
+    top: 43%;
+    right: 45%;
+    width: 2%;
+    height: 2%;
+    border-radius: 50%;
+    background: #EAEAEA;
+    z-index: 3;
+    }
+
+    .ears {
+    position: absolute;
+    top: 30%;
+    left: 33%;
+    width: 34%;
+    height: 25%;
+    clip-path: polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%);
+    background: #72BA92;
+    z-index: 0;
+    box-shadow: 0px 0px 8px -5px black;
+    }
+
+    .tusks {
+    position: absolute;
+    top: 42.5%;
+    left: 35%;
+    width: 30%;
+    height: 12%;
+    clip-path: polygon(50% 0, 0% 100%, 100% 100%);
+    background: #EAEAEA;
+    z-index: 0;
+    box-shadow: 0px 0px 8px -5px black;
+    }
+
+    .trunk {
+    position: absolute;
+    height: 21%;
+    width: 25%;
+    background: #72BA92;
+    border-radius: 0 0 100% 0;
+    z-index: 1;
+    top: 55%;
+    left: 32.5%;
+    box-shadow: 0px 4px 9px -6px black;
+    }
+
+    .trunk:before {
+    content: "";
+    display: block;
+    position: absolute;
+    border-radius: 0 0 70%;
+    width: 90%;
+    height: 85%;
+    background-color: #52797E;
+    right: 60%;
+    top: 0%;
+    }
+
+    .trunk-mark-1 {
+    position: absolute;
+    top: 55%;
+    left: 46.5%;
+    width: 7%;
+    height: 1%;
+    border-radius: 5px;
+    background: #FCCF78;
+    z-index: 3;
+    }
+
+    .trunk-mark-2 {
+    position: absolute;
+    top: 57.5%;
+    left: 47%;
+    width: 6%;
+    height: 1%;
+    border-radius: 5px;
+    background: #FCCF78;
+    z-index: 3;
+    }
+
+    .trunk-mark-3 {
+    position: absolute;
+    top: 60%;
+    left: 47.5%;
+    width: 5%;
+    height: 1%;
+    border-radius: 5px;
+    background: #FCCF78;
+    z-index: 3;
+    }
+
+    .caption {
+    position: absolute;
+    bottom: 6%;
+    width: 50%;
+    height: 10%;
+    left: 25%;
+    }
+
+    .caption::after {
+    content: "jai ganesh deva";
+    font-family: "Handlee", cursive;
+    color: #FCCF78;
+    font-size: 2.6vw;
+    text-align: center;
+    width: 100%;
+    position: absolute;
+    font-weight: 700;
+    }
+    </style>
+</head>
+
+<body>
+
+    <div class="ganesha">
+        <div class="crown-top"></div>
+        <div class="crown-top-circle"></div>
+        <div class="crown-bottom"></div>
+        <div class="crown-bottom-circle-1"></div>
+        <div class="crown-bottom-circle-2"></div>
+        <div class="crown-bottom-circle-3"></div>
+        <div class="face-bottom"></div>
+        <div class="face-upper"></div>
+        <div class="eye-left"></div>
+        <div class="eye-right"></div>
+        <div class="trishool"></div>
+        <div class="ears"></div>
+        <div class="tusks"></div>
+        <div class="trunk"></div>
+        <div class="trunk-mark-1"></div>
+        <div class="trunk-mark-2"></div>
+        <div class="trunk-mark-3"></div>
+        <div class="caption"></div>
+    </div>
+</body>
+
+</html>
