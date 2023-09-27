@@ -1,0 +1,92 @@
+{
+  "name": "cappo",
+  "version": "1.0.0",
+  "description": "A simple CAP project.",
+  "repository": "<Add your repository here>",
+  "license": "UNLICENSED",
+  "private": true,
+  "dependencies": {
+    "@sap/cds": "^6",
+    "@sap/cds-odata-v2-adapter-proxy": "^1.9.17",
+    "@sap/xsenv": "^3.4.0",
+    "@sap/xssec": "^3.2.17",
+    "express": "^4",
+    "hdb": "^0.19.0",
+    "passport": "^0.6.0"
+  },
+  "devDependencies": {
+    "@sap/ux-specification": "^1.102.15",
+    "sqlite3": "^5.0.4"
+  },
+  "scripts": {
+    "start": "cds run",
+    "build": "cds build/all --clean;cp gen/srv/srv/csn.json srv/gen/;cp -r gen/db/src/gen db/src",
+    "watch-purchaseorderapp": "cds watch --open purchaseorderapp/webapp/index.html?sap-ui-xx-viewCache=false"
+  },
+  "engines": {
+    "node": "^16.15"
+  },
+  "eslintConfig": {
+    "extends": "eslint:recommended",
+    "env": {
+      "es2020": true,
+      "node": true,
+      "jest": true,
+      "mocha": true
+    },
+    "globals": {
+      "SELECT": true,
+      "INSERT": true,
+      "UPDATE": true,
+      "DELETE": true,
+      "CREATE": true,
+      "DROP": true,
+      "CDL": true,
+      "CQL": true,
+      "CXL": true,
+      "cds": true
+    },
+    "rules": {
+      "no-console": "off",
+      "require-atomic-updates": "off"
+    }
+  },
+  "cds": {
+    "requires": {
+      "db": {
+        "kind": "hana-cloud",
+        "credentials": {
+          "database": "batman-key"
+        }
+      },
+      "auth":{
+        "[production]":{
+          "strategy": "JWT"
+        },
+        "[development]":{
+          "strategy": "mock",
+          "users": {
+            "anubhav":{
+              "roles":["Viewer"],
+              "userAttributes":{
+                "BankName":["$UNRESTRICTED"]
+              }
+            },
+            "ananya":{
+              "roles":["Viewer"],
+              "userAttributes":{
+                "BankName":["My Bank of London","My Bank of New York","My Bank of San Francisco"]
+              }
+            }
+          }
+        }
+      }
+    },
+    "hana": {
+      "deploy-format": "hdbtable"
+    }
+  },
+  "sapux": [
+    "app/purchaseorderapp"
+  ]
+}

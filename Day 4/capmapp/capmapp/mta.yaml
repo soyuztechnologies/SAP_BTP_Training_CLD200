@@ -1,0 +1,58 @@
+_schema-version: '3.1'
+ID: cappo
+version: 1.0.0
+description: A simple CAP project.
+parameters:
+  enable-parallel-deployments: true
+build-parameters:
+  before-all:
+    - builder: custom
+      commands:
+        - npx -p @sap/cds-dk cds build --production
+modules:
+  - name: cappo-srv
+    type: nodejs
+    path: gen/srv
+    parameters:
+      buildpack: nodejs_buildpack
+    build-parameters:
+      builder: npm-ci
+    provides:
+      - name: srv-api
+        properties:
+          srv-url: '${default-url}'
+    requires:
+      - name: cappo-db
+      - name: cappo-xsuaa
+  - name: cappo-ui
+    type: nodejs
+    path: app
+    requires:
+      - name: srv-api
+        group: destinations
+        properties:
+          name: srv-api
+          strictSSL: true
+          forwardAuthToken: true
+          url: '~{srv-url}'
+      - name: cappo-xsuaa
+  - name: cappo-db-deployer
+    type: hdb
+    path: gen/db
+    parameters:
+      buildpack: nodejs_buildpack
+    requires:
+      - name: cappo-db
+resources:
+  - name: cappo-db
+    type: com.sap.xs.hdi-container
+    parameters:
+      service: hana
+      service-plan: hdi-shared
+  - name: cappo-xsuaa
+    type: org.cloudfoundry.managed-service
+    description: Automatic XSUAA Service for Security
+    parameters:
+      service: xsuaa
+      service-plan: application
+      path: ./xs-security.json
