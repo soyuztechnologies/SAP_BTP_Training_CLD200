@@ -1,0 +1,35 @@
+{
+  "name": "mycapapp",
+  "version": "1.0.0",
+  "description": "A simple CAP project.",
+  "repository": "<Add your repository here>",
+  "license": "UNLICENSED",
+  "private": true,
+  "dependencies": {
+    "@sap/cds": "^7",
+    "@sap/cds-hana": "^2",
+    "@sap/cds-odata-v2-adapter-proxy": "^1.9.21",
+    "@sap/xsenv": "^4.0.0",
+    "@sap/xssec": "^3.3.5",
+    "passport": "^0.6.0"
+  },
+  "devDependencies": {
+    "@cap-js/sqlite": "^1.2.1",
+    "@sap/cds-dk": "^7",
+    "@sap/ux-specification": "^1.108.14"
+  },
+  "scripts": {
+    "start": "cds-serve",
+    "watch-purchaseorderapp": "cds watch --open purchaseorderapp/webapp/index.html?sap-ui-xx-viewCache=false"
+  },
+  "sapux": [
+    "app/purchaseorderapp"
+  ],
+  "cds": {
+    "requires": {
+      "[hybrid]": {
+        "db": "hana"
+      }
+    }
+  }
+}

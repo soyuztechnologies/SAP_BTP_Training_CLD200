@@ -1,0 +1,19 @@
+{
+    "welcomeFile": "purchaseorderapp/webapp/",
+    "authenticationMethod": "none",
+    "sessionTimeout": 100,
+    "pluginMetadataEndpoint": "/metadata",
+    "routes": [
+      {
+        "source": "^/purchaseorderapp/webapp/(.*)",
+        "target": "$1",
+        "localDir": "purchaseorderapp/webapp/",
+        "authenticationType": "none"
+      },
+      {
+        "source": "^/(.*)$",
+        "destination": "srv-api",
+        "authenticationType": "none"
+      }
+    ]
+  }

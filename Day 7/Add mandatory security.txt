@@ -1,0 +1,27 @@
+1. Adding managed service resource
+
+  - name: mycapapp-xsuaa
+    type: org.cloudfoundry.managed-service
+    parameters:
+      path: ./xs-security.json
+      service: xsuaa
+      service-plan: application
+
+
+2. install passport, @sap/xsenv, @sap/xssec
+3. bind with srv module
+
+  - name: mycapapp-srv
+    type: nodejs
+    path: gen/srv
+    parameters:
+      buildpack: nodejs_buildpack
+    build-parameters:
+      builder: npm
+    provides:
+      - name: srv-api # required by consumers of CAP services (e.g. approuter)
+        properties:
+          srv-url: ${default-url}
+    requires:
+      - name: mycapapp-db
+      - name: mycapapp-xsuaa

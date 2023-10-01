@@ -1,0 +1,63 @@
+_schema-version: '3.1'
+ID: mycapapp
+version: 1.0.0
+description: "A simple CAP project."
+parameters:
+  enable-parallel-deployments: true
+build-parameters:
+  before-all:
+    - builder: custom
+      commands:
+        - npx cds build --production
+modules:
+  - name: mycapapp-ui
+    type: nodejs
+    path: app
+    parameters:
+      buildpack: nodejs_buildpack
+    build-parameters:
+      builder: npm-ci
+    requires:
+      - name: srv-api
+        group: destinations
+        properties:
+          name: srv-api
+          strictSSL: true
+          forwardAuthToken: true
+          url: '~{srv-url}'
+          
+  - name: mycapapp-srv
+    type: nodejs
+    path: gen/srv
+    parameters:
+      buildpack: nodejs_buildpack
+    build-parameters:
+      builder: npm
+    provides:
+      - name: srv-api # required by consumers of CAP services (e.g. approuter)
+        properties:
+          srv-url: ${default-url}
+    requires:
+      - name: mycapapp-db
+      - name: mycapapp-xsuaa
+
+  - name: mycapapp-db-deployer
+    type: hdb
+    path: gen/db
+    parameters:
+      buildpack: nodejs_buildpack
+    requires:
+      - name: mycapapp-db
+
+resources:
+  - name: mycapapp-db
+    type: com.sap.xs.hdi-container
+    parameters:
+      service: hana
+      service-plan: hdi-shared
+  - name: mycapapp-xsuaa
+    type: org.cloudfoundry.managed-service
+    parameters:
+      path: ./xs-security.json
+      service: xsuaa
+      service-plan: application

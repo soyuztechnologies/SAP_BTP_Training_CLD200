@@ -1,0 +1,119 @@
+1. Fixing the issue of product data load
+
+entity ProductSet as projection on cds.CDSViews.ProductView;
+Change binding in detail screen
+
+2. Example for Value help (purchaseoderapp>annotations.cds)
+
+
+annotate CatalogService.PurchaseOrder with {
+    PARTNER_GUID@(
+        Common : { 
+            Text : PARTNER_GUID.COMPANY_NAME,
+         },
+         ValueList.entity: CatalogService.BusinessPartnerSet
+    )
+};
+
+annotate CatalogService.PurchaseOrderItems with {
+    PRODUCT_GUID@(
+        Common : { 
+            Text : PRODUCT_GUID.Description,
+         },
+         ValueList.entity: CatalogService.ProductSet
+    )
+};
+
+
+@cds.odata.valuelist
+annotate CatalogService.BusinessPartnerSet with @(
+    UI.Identification:[{
+        $Type : 'UI.DataField',
+        Value : COMPANY_NAME,
+    }]
+);
+
+@cds.odata.valuelist
+annotate CatalogService.ProductSet with @(
+    UI.Identification:[{
+        $Type : 'UI.DataField',
+        Value : Description,
+    }]
+);
+
+
+2. Side effects for boost action
+
+actions{
+        @cds.odata.bindingparameter.name : '_anubhav'
+        @Common.SideEffects : {
+                TargetProperties : ['_anubhav/GROSS_AMOUNT']
+            }  
+        action boost() returns PurchaseOrder;
+        function largestOrder() returns array of PurchaseOrder;
+    };
+
+
+3. Debuging
+
+debugging generate config of type nodejs
+{
+            "command": "cds watch",
+            "type": "node-terminal",
+            "request": "launch",
+            "name": "Anubhav Training debug",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "cwd": "${workspaceFolder}//mycapapp"
+        }
+4. Setting Default value
+
+Annotationfor PO: 
+Common.DefaultValuesFunction : 'getOrderDefaults'
+
+Keep outside entities:
+        function getOrderDefaults() returns PurchaseOrder;
+
+Code:
+this.on('getOrderDefaults', async req => {
+        return {OVERALL_STATUS: 'N'};
+      });
+
+
+4. Adding custom action on object page
+
+4.1 define action at service level
+actions{
+        action setOrderProcessing();
+    };
+
+
+4.2. Add annotation under PurchaseOrder in annotations.cds
+,
+    UI.Identification:[{
+        $Type         : 'UI.DataFieldForAction',
+        Label         : 'Set to Delivered',
+        Action        : 'CatalogService.setOrderProcessing'
+    }]
+
+4.3 Logic in Catalogservice.js
+
+  //Implementation [service.js]
+    this.on('setOrderProcessing', PurchaseOrder, async req => {
+        const tx = cds.tx(req);
+        await tx.update(PurchaseOrder, req.params[0].ID).set({OVERALL_STATUS: 'D'});
+    });
+
+
+5. Dynamic Expression
+
+UI.Identification:[{
+        $Type         : 'UI.DataFieldForAction',
+        Label         : 'Set to Delivered',
+        Action        : 'CatalogService.setOrderProcessing',
+        ![@UI.Hidden] : {$edmJson : {$Eq : [{$Path : 'OVERALL_STATUS'}, 'D']}}
+    }],
+
+
+
