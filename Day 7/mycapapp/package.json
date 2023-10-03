@@ -1,0 +1,59 @@
+{
+  "name": "mycapapp",
+  "version": "1.0.0",
+  "description": "A simple CAP project.",
+  "repository": "<Add your repository here>",
+  "license": "UNLICENSED",
+  "private": true,
+  "dependencies": {
+    "@sap/cds": "^7",
+    "@sap/cds-hana": "^2",
+    "@sap/cds-odata-v2-adapter-proxy": "^1.9.21",
+    "@sap/xssec": "^3",
+    "passport": "^0"
+  },
+  "devDependencies": {
+    "@cap-js/sqlite": "^1.2.1",
+    "@sap/cds-dk": "^7",
+    "@sap/ux-specification": "^1.108.14"
+  },
+  "scripts": {
+    "start": "cds-serve",
+    "deploy": "cds deploy --to hana:dorimon --profile hybrid",
+    "run": "cds watch --profile hybrid",
+    "watch-purchaseorderapp": "cds watch --open purchaseorderapp/webapp/index.html?sap-ui-xx-viewCache=false"
+  },
+  "sapux": [
+    "app/purchaseorderapp"
+  ],
+  "cds": {
+    "requires": {
+      "[hybrid]": {
+        "db": "hana"
+      },
+      "auth":{
+        "[production]":{
+          "strategy": "JWT"
+        },
+        "[development]":{
+          "strategy": "mock",
+          "users": {
+            "anubhav":{
+              "roles":["Viewer"],
+              "userAttributes":{
+                "BankName":["$UNRESTRICTED"]
+              }
+            },
+            "ananya":{
+              "roles":["Viewer"],
+              "userAttributes":{
+                "BankName":["My Bank of London","My Bank of New York","My Bank of San Francisco"]
+              }
+            }
+          }
+        }
+      }
+    },
+    "auth": "xsuaa"
+  }
+}
