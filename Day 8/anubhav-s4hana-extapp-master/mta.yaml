@@ -1,0 +1,53 @@
+---
+_schema-version: '3.1'
+ID: btp-s4-sales-ext
+version: 1.0.0
+description: "A simple CAP project."
+parameters:
+  enable-parallel-deployments: true
+build-parameters:
+  before-all:
+    - builder: custom
+      commands:
+        - npx -p @sap/cds-dk cds build --production
+modules:
+  - name: btp-s4-sales-ext-srv
+    type: nodejs
+    path: gen/srv
+    requires:
+      - name: s4hanaso-uaa
+      - name: mycapapiext-destination
+    parameters:
+      buildpack: nodejs_buildpack
+    build-parameters:
+      builder: npm-ci
+    provides:
+      - name: srv-api # required by consumers of CAP services (e.g. approuter)
+        properties:
+          srv-url: ${default-url}
+
+  - name: btp-s4-sales-ext-ui
+    type: nodejs
+    path: app
+    requires:
+      - name: srv-api
+        group: destinations
+        properties: 
+          name: srv-api
+          strictSSL: true
+          forwardAuthToken: true
+          url: '~{srv-url}'
+      - name: s4hanaso-uaa
+      - name: mycapapiext-destination
+
+resources:
+  - name: mycapapiext-destination
+    type: org.cloudfoundry.existing-service
+    parameters:
+      service-name: mycapapiext-destination
+  - name: s4hanaso-uaa
+    type: org.cloudfoundry.managed-service
+    parameters:
+      path: ./xs-security.json
+      service:  xsuaa
+      service-plan: application

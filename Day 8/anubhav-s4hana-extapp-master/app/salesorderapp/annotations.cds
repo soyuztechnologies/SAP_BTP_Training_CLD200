@@ -1,0 +1,1 @@
+using btps4salesext.srv.CatalogService as service from '../../srv/CatalogService';
