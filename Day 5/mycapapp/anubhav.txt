@@ -1,0 +1,264 @@
+{
+  "_context": "cds",
+  "_home": "/home/user/projects/mycapapp",
+  "_sources": [
+    "/home/user/projects/mycapapp/node_modules/@sap/cds/lib/env/defaults.js",
+    "@sap/cds-fiori/package.json",
+    "@cap-js/postgres/package.json",
+    "@cap-js/sqlite/package.json",
+    "/home/user/projects/mycapapp/.cdsrc.json",
+    "process.env"
+  ],
+  "_profiles": {
+    "_defined": {}
+  },
+  "production": false,
+  "cov2ap": false,
+  "requires": {
+    "middlewares": true,
+    "auth": {
+      "kind": "basic-auth",
+      "strategy": "mock",
+      "users": {
+        "alice": {
+          "tenant": "t1",
+          "roles": [
+            "cds.Subscriber",
+            "admin"
+          ]
+        },
+        "bob": {
+          "tenant": "t1",
+          "roles": [
+            "cds.ExtensionDeveloper",
+            "cds.UIFlexDeveloper"
+          ]
+        },
+        "carol": {
+          "tenant": "t1",
+          "roles": [
+            "cds.Subscriber",
+            "admin",
+            "cds.ExtensionDeveloper",
+            "cds.UIFlexDeveloper"
+          ]
+        },
+        "dave": {
+          "tenant": "t1",
+          "roles": [
+            "cds.Subscriber",
+            "admin"
+          ],
+          "features": []
+        },
+        "erin": {
+          "tenant": "t2",
+          "roles": [
+            "cds.Subscriber",
+            "admin",
+            "cds.ExtensionDeveloper",
+            "cds.UIFlexDeveloper"
+          ]
+        },
+        "fred": {
+          "tenant": "t2",
+          "features": [
+            "isbn"
+          ]
+        },
+        "me": {
+          "tenant": "t1",
+          "features": [
+            "*"
+          ]
+        },
+        "yves": {
+          "roles": [
+            "internal-user"
+          ]
+        },
+        "*": true
+      },
+      "tenants": {
+        "t1": {
+          "features": [
+            "isbn"
+          ]
+        },
+        "t2": {
+          "features": "*"
+        }
+      },
+      "_kind": "mocked"
+    },
+    "db": {
+      "impl": "@cap-js/sqlite",
+      "credentials": {
+        "url": ":memory:"
+      },
+      "kind": "sqlite"
+    }
+  },
+  "server": {
+    "force_exit_timeout": 1111,
+    "port": 4004
+  },
+  "schemas": {
+    "cds-rc.json": "/home/user/projects/mycapapp/node_modules/@sap/cds/lib/env/schemas/cds-rc.json",
+    "cds-package.json": "/home/user/projects/mycapapp/node_modules/@sap/cds/lib/env/schemas/cds-package.json"
+  },
+  "features": {
+    "folders": "fts/*",
+    "live_reload": true,
+    "in_memory_db": true,
+    "test_data": true,
+    "test_mocks": true,
+    "with_mocks": true,
+    "mocked_bindings": true,
+    "skip_unused": true,
+    "deploy_data_onconflict": "insert",
+    "one_model": true,
+    "localized": true,
+    "assert_integrity": false,
+    "cds_tx_inheritance": true,
+    "serve_on_root": false,
+    "precise_timestamps": false
+  },
+  "fiori": {
+    "preview": {
+      "ui5": {
+        "version": "1.117.0"
+      }
+    },
+    "routes": true,
+    "lean_draft": true
+  },
+  "ql": {
+    "quirks_mode": true
+  },
+  "log": {
+    "levels": {
+      "compile": "warn",
+      "cli": "warn",
+      "deploy": "info",
+      "serve": "info",
+      "server": "info"
+    },
+    "service": false,
+    "kibana_custom_fields": {
+      "query": 0,
+      "target": 1,
+      "details": 2
+    }
+  },
+  "folders": {
+    "db": "db/",
+    "srv": "srv/",
+    "app": "app/"
+  },
+  "i18n": {
+    "file": "i18n",
+    "folders": [
+      "_i18n",
+      "i18n",
+      "assets/i18n"
+    ],
+    "for_sqlite": [
+      "de",
+      "fr"
+    ],
+    "for_sql": [
+      "de",
+      "fr"
+    ],
+    "languages": "all",
+    "default_language": "en",
+    "fallback_bundle": "",
+    "preserved_locales": [
+      "en_GB",
+      "es_CO",
+      "es_MX",
+      "fr_CA",
+      "pt_PT",
+      "zh_CN",
+      "zh_HK",
+      "zh_TW"
+    ]
+  },
+  "odata": {
+    "flavors": {
+      "v2": {
+        "version": "v2"
+      },
+      "v4": {
+        "version": "v4"
+      },
+      "w4": {
+        "version": "v4",
+        "containment": true,
+        "structs": true,
+        "refs": false,
+        "xrefs": false
+      },
+      "x4": {
+        "version": "v4",
+        "containment": true,
+        "structs": true,
+        "refs": true,
+        "xrefs": true
+      }
+    },
+    "version": "v4"
+  },
+  "sql": {
+    "names": "plain",
+    "dialect": "sqlite"
+  },
+  "hana": {
+    "deploy-format": "hdbtable",
+    "journal": {
+      "change-mode": "alter"
+    }
+  },
+  "build": {
+    "target": "gen"
+  },
+  "mtx": {
+    "api": {
+      "model": true,
+      "provisioning": true,
+      "metadata": true,
+      "diagnose": true
+    },
+    "domain": "__default__"
+  },
+  "cdsc": {
+    "moduleLookupDirectories": [
+      "node_modules/"
+    ]
+  },
+  "query": {
+    "limit": {
+      "max": 1000
+    }
+  },
+  "watch": {
+    "delay": "\"2000\""
+  },
+  "config": "null",
+  "protocols": {
+    "odata": {
+      "path": "/odata/v4",
+      "impl": "/home/user/projects/mycapapp/node_modules/@sap/cds/lib/srv/protocols/odata-v4"
+    },
+    "odata-v4": {
+      "path": "/odata/v4",
+      "impl": "/home/user/projects/mycapapp/node_modules/@sap/cds/lib/srv/protocols/odata-v4"
+    },
+    "rest": {
+      "path": "/rest",
+      "impl": "/home/user/projects/mycapapp/node_modules/@sap/cds/lib/srv/protocols/rest"
+    }
+  },
+  "_home_cds-dk": "/extbin/globals/pnpm/5/.pnpm/registry.npmjs.org+@sap+cds-dk@7.0.2/node_modules/@sap/cds-dk"
+}

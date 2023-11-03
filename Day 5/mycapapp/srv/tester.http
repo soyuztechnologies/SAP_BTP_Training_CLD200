@@ -1,0 +1,107 @@
+
+
+##Get service document
+http://localhost:4004/odata/v4/CatalogService
+
+
+###Get service metadata
+
+http://localhost:4004/odata/v4/CatalogService/$metadata
+
+###Get service metadata
+http://localhost:4004/v2/odata/v4/CatalogService/$metadata
+
+###GetEmployee data
+http://localhost:4004/odata/v4/CatalogService/EmployeeSet
+
+###GetEmployee data
+http://localhost:4004/v2/odata/v4/CatalogService/EmployeeSet
+
+###GetEmployee data - pagination
+http://localhost:4004/odata/v4/CatalogService/EmployeeSet?$top=2&$skip=2
+
+###Create new employee using service
+
+POST http://localhost:4004/odata/v4/CatalogService/EmployeeSet
+Content-Type: application/json
+
+{
+      "nameFirst": "Anubhav",
+      "nameLast": "Oberoi",
+      "sex": "M",
+      "phoneNumber": "(123) 456-7890",
+      "email": "anubhav.abap@gmail.com",
+      "salaryAmount": 100000
+}
+
+###GET and then delete
+DELETE http://localhost:4004/odata/v4/CatalogService/EmployeeSet/3ffdcaf8-30a1-4530-acb2-3f66d6862d04
+
+###GetEmployee data - filter
+http://localhost:4004/odata/v4/CatalogService/EmployeeSet?$filter=sex eq 'F'
+
+###Get all products
+http://localhost:4004/odata/v4/CatalogService/ProductView
+
+###Get Record single by key
+http://localhost:4004/odata/v4/CatalogService/ProductView('74867AD200E41EDBA5D8B06B26EBA052')
+
+###Get Product Data with association
+http://localhost:4004/odata/v4/CatalogService/ProductView('74867AD200E41EDBA5D8B06B26EBA052')?$expand=To_Items
+
+
+###Get service document
+
+http://localhost:4004/odata/v4/CatalogService/PurchaseOrder
+
+
+###Get service document
+http://localhost:4004/odata/v4/CatalogService/PurchaseOrder/74867AD200E41EDBA5D8B0C98DC28052
+
+###Testing the boost action
+POST http://localhost:4004/odata/v4/CatalogService/PurchaseOrder/74867AD200E41EDBA5D8B0C98DC28052/boost
+Content-Type: application/json
+
+{}
+
+###Testing the get largest order function
+http://localhost:4004/odata/v4/CatalogService/PurchaseOrder/74867AD200E41EDBA5D8B0C98DC28052/largestOrder()
+
+###Read from custom service
+http://localhost:4004/odata/v4/demoservice/ReadEmpSrv/02BD2137-0890-1EEA-A6C2-BB55C198E8DB
+
+
+###POST to insert data
+POST http://localhost:4004/odata/v4/demoservice/InserEmployeeSrv
+Content-Type: application/json
+
+{
+      "ID": "02BD2137-0890-1EEA-A6C2-BB55C198E8DB",
+      "nameFirst": "Happy",
+      "nameMiddle": null,
+      "nameLast": "New Data",
+      "nameInitials": null,
+      "sex": "F",
+      "language": "E",
+      "phoneNumber": null,
+      "email": "nongyui@ey.com",
+      "loginName": "NONBGYUI",
+      "Currency_code": "USD",
+      "salaryAmount": 95000,
+      "accountNumber": "9988776655",
+      "bankId": "12100035",
+      "bankName": "My Bank of San Francisco"
+}
+
+###POST to insert data
+PATCH http://localhost:4004/odata/v4/demoservice/UpdateEmployeeSrv/02BD2137-0890-1EEA-A6C2-BB55C198E8DB
+Content-Type: application/json
+
+{
+      "nameFirst":"Nong Yui",
+    "nameLast": "Sober Sobti"
+}
+
+###DELETE Employee
+DELETE http://localhost:4004/odata/v4/demoservice/DeleteEmployeeSrv/02BD2137-0890-1EEA-A6C2-BB55C198E8DB
+Content-Type: application/json
