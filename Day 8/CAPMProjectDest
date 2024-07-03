@@ -1,0 +1,17 @@
+#clientSecret=<< Existing password/certificate removed on export >>
+#
+#Sun Sep 12 07:40:15 UTC 2021
+clientId=sb-12capm\!t81158
+Description=for notif
+Type=HTTP
+HTML5.Timeout=60000
+HTML5.DynamicDestination=true
+Authentication=OAuth2UserTokenExchange
+WebIDEUsage=odata_gen
+Name=CAPMProjectDest
+WebIDEEnabled=true
+tokenServiceURL=https\://03ba18b9trial.authentication.eu10.hana.ondemand.com/oauth/token
+ProxyType=Internet
+URL=https\://03ba18b9trial-dev-12capm-srv.cfapps.eu10.hana.ondemand.com/
+tokenServiceURLType=Dedicated
+scope=12capm\!t81158.Admin
