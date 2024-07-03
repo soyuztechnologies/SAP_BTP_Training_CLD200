@@ -1,0 +1,17 @@
+#mail.password=<< Existing password/certificate removed on export >>
+#
+#Sun Oct 09 11:35:15 UTC 2022
+Type=MAIL
+mail.user=anubhav.abap@outlook.com
+mail.bpm.send.disabled=false
+mail.smtp.from=anubhav.abap@outlook.com
+mail.transport.protocol=smtp
+mail.smtp.starttls.required=true
+Authentication=BasicAuthentication
+mail.smtp.ssl.checkserveridentity=true
+mail.smtp.host=smtp-mail.outlook.com
+Name=bpmworkflowruntime_mail
+mail.smtp.starttls.enable=true
+ProxyType=Internet
+mail.smtp.port=587
+mail.smtp.auth=true

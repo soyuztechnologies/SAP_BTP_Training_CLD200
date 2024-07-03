@@ -1,0 +1,16 @@
+#clientSecret=<< Existing password/certificate removed on export >>
+#
+#Fri Dec 08 17:30:31 UTC 2023
+clientId=sb-e1ce0314-840e-422b-b79f-718091ca8ca8\!b206907|xsuaa\!b49390
+Type=HTTP
+saasregistryenabled=true
+endpoints={         "api"\: "https\://spa-api-gateway-bpi-us-prod.cfapps.us10.hana.ondemand.com"     }
+sap.cloud.service.alias=spa
+Authentication=OAuth2ClientCredentials
+Name=sap_process_automation_service
+html5-apps-repo={         "app_host_id"\: "906e0e53-e05b-4654-a999-30de519f64b4,ad4b900b-4bf1-4965-a6a6-d71ce7fc5300,9cd6ff5e-f33f-459e-90de-35e17719e6e1,3be0da62-2508-4691-8794-579a6dd30303"     }
+tokenServiceURL=https\://1c4a28ddtrial.authentication.us10.hana.ondemand.com/oauth/token
+ProxyType=Internet
+URL=https\://spa-api-gateway-bpi-us-prod.cfapps.us10.hana.ondemand.com
+tokenServiceURLType=Dedicated
+sap.cloud.service=com.sap.spa.processautomation

@@ -1,0 +1,11 @@
+#Password=<< Existing password/certificate removed on export >>
+#
+#Thu Aug 25 13:04:24 UTC 2022
+Description=Anubhav ES server
+Type=HTTP
+Authentication=BasicAuthentication
+Name=AnubhavDestination
+ProxyType=Internet
+URL=https\://sapes5.sapdevcenter.com\:443/sap/opu/odata/sap/EPM_REF_APPS_SHOP_SRV/
+sap-client=002
+User=P2005641460
