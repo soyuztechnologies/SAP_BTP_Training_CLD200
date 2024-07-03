@@ -1,0 +1,194 @@
+{
+	"info": {
+		"_postman_id": "9fdb9f9f-70bc-4728-81d3-70b56c689a65",
+		"name": "Sales Order API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "New Request",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "https://services.odata.org/Experimental/OData/OData.svc/"
+			},
+			"response": []
+		},
+		{
+			"name": "Call API",
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": {
+						"accessTokenUrl": "https://bbba4d6dtrial.authentication.us10.hana.ondemand.com/oauth/token",
+						"password": "Welcome1",
+						"username": "install.abap@gmail.com",
+						"clientSecret": "rrGCc3TYkU+zLW08/xiXp8KOAUY=",
+						"clientId": "sb-mycapapiext!t131427",
+						"tokenName": "BTPJWTToken",
+						"grant_type": "password_credentials",
+						"client_authentication": "header",
+						"authUrl": "https://0c4c3479trial.authentication.us10.hana.ondemand.com/oauth/token",
+						"scope": "",
+						"redirect_uri": "",
+						"useBrowser": false,
+						"addTokenTo": "header",
+						"tokenType": "bearer"
+					}
+				},
+				"method": "GET",
+				"header": [],
+				"url": "bbba4d6dtrial-dev-mycapapiext-srv.cfapps.us10-001.hana.ondemand.com/catalog/Products"
+			},
+			"response": []
+		},
+		{
+			"name": "Get Sales Order from SAP",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": {
+						"password": "******",
+						"username": "mob5"
+					}
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-csrf-Token",
+						"value": "fetch"
+					},
+					{
+						"key": "Authorization",
+						"value": "******"
+					}
+				],
+				"url": {
+					"raw": "http://s4dev.st.com:8021/sap/opu/odata/sap/API_SALES_ORDER_SRV/A_SalesOrder?$top=1&$filter=PurchaseOrderByCustomer eq '2504202301'&$format=json&$orderby=CreationDate desc&$select=SalesOrder,SoldToParty,PurchaseOrderByCustomer,OverallDeliveryStatus",
+					"protocol": "http",
+					"host": [
+						"s4dev",
+						"st",
+						"com"
+					],
+					"port": "8021",
+					"path": [
+						"sap",
+						"opu",
+						"odata",
+						"sap",
+						"API_SALES_ORDER_SRV",
+						"A_SalesOrder"
+					],
+					"query": [
+						{
+							"key": "$top",
+							"value": "1"
+						},
+						{
+							"key": "$filter",
+							"value": "PurchaseOrderByCustomer eq '2504202301'"
+						},
+						{
+							"key": "$format",
+							"value": "json"
+						},
+						{
+							"key": "$expand",
+							"value": "to_Item",
+							"disabled": true
+						},
+						{
+							"key": "$orderby",
+							"value": "CreationDate desc"
+						},
+						{
+							"key": "$select",
+							"value": "SalesOrder,SoldToParty,PurchaseOrderByCustomer,OverallDeliveryStatus"
+						}
+					]
+				},
+				"description": "Fetch The Token from SAP System"
+			},
+			"response": []
+		},
+		{
+			"name": "Create Sales Order in SAP",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": {
+						"password": "******",
+						"username": "mob5"
+					}
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-csrf-Token",
+						"value": "B0xv3pch6xy-K92dySr2NA=="
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"SalesOrder\": \"\",\n    \"SalesOrderType\": \"OR\",\n    \"SalesOrganization\": \"T2SO\",\n    \"DistributionChannel\": \"T2\",\n    \"OrganizationDivision\": \"00\",\n    \"SalesGroup\": \"\",\n    \"SalesOffice\": \"\",\n    \"SalesDistrict\": \"\",\n    \"SoldToParty\": \"4100000\",\n    \"CreationDate\": \"/Date(1675987200000)/\",\n    \"CreatedByUser\": \"STHANA9\",\n    \"LastChangeDate\": null,\n    \"SenderBusinessSystemName\": \"\",\n    \"ExternalDocumentID\": \"\",\n    \"LastChangeDateTime\": \"/Date(1676023849734+0000)/\",\n    \"ExternalDocLastChangeDateTime\": null,\n    \"PurchaseOrderByCustomer\": \"Test\",\n    \"PurchaseOrderByShipToParty\": \"\",\n    \"CustomerPurchaseOrderType\": \"\",\n    \"CustomerPurchaseOrderDate\": \"/Date(1675987200000)/\",\n    \"SalesOrderDate\": \"/Date(1675987200000)/\",\n    \"TotalNetAmount\": \"2000.00\",\n    \"OverallDeliveryStatus\": \"A\",\n    \"TotalBlockStatus\": \"C\",\n    \"OverallOrdReltdBillgStatus\": \"\",\n    \"OverallSDDocReferenceStatus\": \"\",\n    \"TransactionCurrency\": \"INR\",\n    \"SDDocumentReason\": \"\",\n    \"PricingDate\": \"/Date(1668038400000)/\",\n    \"PriceDetnExchangeRate\": \"1.00000\",\n    \"RequestedDeliveryDate\": \"/Date(1668038400000)/\",\n    \"ShippingCondition\": \"01\",\n    \"CompleteDeliveryIsDefined\": false,\n    \"ShippingType\": \"01\",\n    \"HeaderBillingBlockReason\": \"\",\n    \"DeliveryBlockReason\": \"\",\n    \"DeliveryDateTypeRule\": \"\",\n    \"IncotermsClassification\": \"FOB\",\n    \"IncotermsTransferLocation\": \"DC Warehouse\",\n    \"IncotermsLocation1\": \"DC Warehouse\",\n    \"IncotermsLocation2\": \"\",\n    \"IncotermsVersion\": \"\",\n    \"CustomerPriceGroup\": \"01\",\n    \"PriceListType\": \"01\",\n    \"CustomerPaymentTerms\": \"0001\",\n    \"PaymentMethod\": \"\",\n    \"FixedValueDate\": null,\n    \"AssignmentReference\": \"\",\n    \"ReferenceSDDocument\": \"\",\n    \"ReferenceSDDocumentCategory\": \"\",\n    \"AccountingDocExternalReference\": \"\",\n    \"CustomerAccountAssignmentGroup\": \"01\",\n    \"AccountingExchangeRate\": \"0.00000\",\n    \"CustomerGroup\": \"01\",\n    \"AdditionalCustomerGroup1\": \"\",\n    \"AdditionalCustomerGroup2\": \"\",\n    \"AdditionalCustomerGroup3\": \"\",\n    \"AdditionalCustomerGroup4\": \"\",\n    \"AdditionalCustomerGroup5\": \"\",\n    \"SlsDocIsRlvtForProofOfDeliv\": false,\n    \"CustomerTaxClassification1\": \"\",\n    \"CustomerTaxClassification2\": \"\",\n    \"CustomerTaxClassification3\": \"\",\n    \"CustomerTaxClassification4\": \"\",\n    \"CustomerTaxClassification5\": \"\",\n    \"CustomerTaxClassification6\": \"\",\n    \"CustomerTaxClassification7\": \"\",\n    \"CustomerTaxClassification8\": \"\",\n    \"CustomerTaxClassification9\": \"\",\n    \"TaxDepartureCountry\": \"\",\n    \"VATRegistrationCountry\": \"\",\n    \"SalesOrderApprovalReason\": \"Z001\",\n    \"SalesDocApprovalStatus\": \"A\",\n    \"OverallSDProcessStatus\": \"B\",\n    \"TotalCreditCheckStatus\": \"B\",\n    \"OverallTotalDeliveryStatus\": \"A\",\n    \"OverallSDDocumentRejectionSts\": \"A\",\n    \"BillingDocumentDate\": \"/Date(1668038400000)/\",\n    \"ContractAccount\": \"\",\n    \"AdditionalValueDays\": \"0\",\n    \"CustomerPurchaseOrderSuplmnt\": \"\",\n    \"ServicesRenderedDate\": null,\n    \"to_Item\": [\n        {\n            \"SalesOrder\": \"157\",\n            \"SalesOrderItem\": \"10\",\n            \"HigherLevelItem\": \"0\",\n            \"HigherLevelItemUsage\": \"\",\n            \"SalesOrderItemCategory\": \"TAN\",\n            \"SalesOrderItemText\": \"Wheat Flour 25KG  Moving average\",\n            \"PurchaseOrderByCustomer\": \"Test\",\n            \"PurchaseOrderByShipToParty\": \"\",\n            \"ExternalItemID\": \"\",\n            \"Material\": \"300130\",\n            \"MaterialByCustomer\": \"\",\n            \"PricingDate\": \"/Date(1668038400000)/\",\n            \"PricingReferenceMaterial\": \"\",\n            \"RequestedQuantity\": \"1\",\n            \"RequestedQuantityUnit\": \"EA\",\n            \"RequestedQuantitySAPUnit\": \"EA\",\n            \"RequestedQuantityISOUnit\": \"EA\",\n            \"OrderQuantityUnit\": \"EA\",\n            \"OrderQuantitySAPUnit\": \"EA\",\n            \"OrderQuantityISOUnit\": \"EA\",\n            \"ConfdDelivQtyInOrderQtyUnit\": \"0\",\n            \"ItemGrossWeight\": \"25.000\",\n            \"ItemNetWeight\": \"25.000\",\n            \"ItemWeightUnit\": \"KG\",\n            \"ItemWeightSAPUnit\": \"KG\",\n            \"ItemWeightISOUnit\": \"KGM\",\n            \"ItemVolume\": \"0.000\",\n            \"ItemVolumeUnit\": \"\",\n            \"ItemVolumeSAPUnit\": \"\",\n            \"ItemVolumeISOUnit\": \"\",\n            \"TransactionCurrency\": \"INR\",\n            \"NetAmount\": \"2000.00\",\n            \"TotalSDDocReferenceStatus\": \"\",\n            \"SDDocReferenceStatus\": \"\",\n            \"MaterialSubstitutionReason\": \"\",\n            \"MaterialGroup\": \"01\",\n            \"MaterialPricingGroup\": \"\",\n            \"AdditionalMaterialGroup1\": \"\",\n            \"AdditionalMaterialGroup2\": \"\",\n            \"AdditionalMaterialGroup3\": \"\",\n            \"AdditionalMaterialGroup4\": \"\",\n            \"AdditionalMaterialGroup5\": \"\",\n            \"BillingDocumentDate\": \"/Date(1668038400000)/\",\n            \"ContractAccount\": \"\",\n            \"AdditionalValueDays\": \"0\",\n            \"ServicesRenderedDate\": null,\n            \"Batch\": \"\",\n            \"ProductionPlant\": \"T2CP\",\n            \"StorageLocation\": \"\",\n            \"DeliveryGroup\": \"0\",\n            \"ShippingPoint\": \"T2SP\",\n            \"ShippingType\": \"01\",\n            \"DeliveryPriority\": \"1\",\n            \"DeliveryDateTypeRule\": \"\",\n            \"IncotermsClassification\": \"FOB\",\n            \"IncotermsTransferLocation\": \"DC Warehouse\",\n            \"IncotermsLocation1\": \"DC Warehouse\",\n            \"IncotermsLocation2\": \"\",\n            \"ProductTaxClassification1\": \"0\",\n            \"ProductTaxClassification2\": \"0\",\n            \"ProductTaxClassification3\": \"0\",\n            \"ProductTaxClassification4\": \"0\",\n            \"ProductTaxClassification5\": \"1\",\n            \"ProductTaxClassification6\": \"\",\n            \"ProductTaxClassification7\": \"\",\n            \"ProductTaxClassification8\": \"\",\n            \"ProductTaxClassification9\": \"\",\n            \"MatlAccountAssignmentGroup\": \"03\",\n            \"CustomerPaymentTerms\": \"0001\",\n            \"FixedValueDate\": null,\n            \"CustomerGroup\": \"01\",\n            \"SalesDocumentRjcnReason\": \"\",\n            \"ItemBillingBlockReason\": \"\",\n            \"SlsDocIsRlvtForProofOfDeliv\": false,\n            \"WBSElement\": \"\",\n            \"ProfitCenter\": \"T20001\",\n            \"AccountingExchangeRate\": \"0.00000\",\n            \"ReferenceSDDocument\": \"151\",\n            \"ReferenceSDDocumentItem\": \"10\",\n            \"SDProcessStatus\": \"A\",\n            \"DeliveryStatus\": \"A\",\n            \"OrderRelatedBillingStatus\": \"\",\n            \"RequirementSegment\": \"\"\n        }\n    ]\n}"
+				},
+				"url": "http://s4dev.st.com:8021/sap/opu/odata/sap/API_SALES_ORDER_SRV/A_SalesOrder",
+				"description": "Create Sales Order from payload"
+			},
+			"response": []
+		},
+		{
+			"name": "Chat GPT",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": ""
+					}
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n     \"model\": \"gpt-3.5-turbo\",\r\n     \"messages\": [{\"role\": \"user\", \"content\": \"could you please extract the text data from this and turn into a json object with property purchaseorder and sender, an email sent by my customer 'please confirm status of my purchase order 2504202301. regards, Sonia.', return only json\"}],\r\n     \"temperature\": 0.7\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "https://api.openai.com/v1/chat/completions"
+			},
+			"response": []
+		},
+		{
+			"name": "Chat GPT Copy",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "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"
+					}
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n     \"model\": \"gpt-3.5-turbo\",\r\n     \"messages\": [{\"role\": \"user\", \"content\": \"\"}\r\n        ]\r\n    },\r\n     \"temperature\": 0.7\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "https://api.openai.com/v1/chat/completions"
+			},
+			"response": []
+		}
+	]
+}

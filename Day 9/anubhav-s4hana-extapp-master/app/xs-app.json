@@ -1,0 +1,19 @@
+{
+    "welcomeFile": "salesorderapp/webapp/index.html",
+    "authenticationMethod": "route",
+    "routes":
+    [{ 
+        "source": "^/salesorderapp/webapp/(.*)$", 
+        "target": "$1",
+        "csrfProtection": false,
+        "authenticationType": "xsuaa",
+        "localDir": "salesorderapp/webapp/" 
+      }, 
+      { 
+        "source": "^/(.*)", 
+        "csrfProtection": false,
+        "authenticationType": "xsuaa",
+        "destination": "srv-api" 
+      } 
+    ]
+}

@@ -1,0 +1,19 @@
+<mvc:View controllerName="com.ats.so.salesorderapp.controller.Main"
+    xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
+    xmlns="sap.m">
+    <Page id="page" title="Hey BTPians! Are you ready">
+        <content>
+            <List id="idList" items="{/MySalesOrder}">
+                <items>
+                    <ObjectListItem title="{SalesOrder}" number="{SalesOrderType}" numberUnit="USD" icon="sap-icon://product"
+                    >
+                        <attributes>
+                            <ObjectAttribute title="Customer" text="{SoldToParty}"></ObjectAttribute>
+                        </attributes>
+                    </ObjectListItem>
+                </items>
+            </List>
+
+        </content>
+    </Page>
+</mvc:View>
